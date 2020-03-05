@@ -12,8 +12,9 @@ public class Constants {
 
     /**
      *  for the addVelocities() method in  Path the class
-     *  */
+     */
     public static final double MAX_VELOCITY = 2.3;
+    public static final double MAX_ACCELERATION = 1;
     public static final double VELOCITY_CONST = 1.5;
 
 

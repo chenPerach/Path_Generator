@@ -46,6 +46,7 @@ public class Path extends ArrayList<Waypoint> {
     private List<String[]> getData(){
         List<String[]> data = new ArrayList<>();
         data.add(new String[]{"X pos","Y pos","Velocity"});
+        data.add(new String[]{""+Math.toDegrees(Vector.subtract(get(0),get(1)).getAngle())});
         for(int i = 0;i<size();i++){
             data.add(new String[] {""+this.get(i).x,""+this.get(i).y,""+this.get(i).velocity});
         }
@@ -72,6 +73,13 @@ public class Path extends ArrayList<Waypoint> {
             this.get(i).velocity = Math.min(velConst/curve,maxVal);
         }
         this.get(this.size()-1).velocity = 0;
+
+        for (int i = 0; i < this.size()-1; i++) {
+            get(i).velocity = 
+                Math.min(get(i).velocity,
+                 Math.sqrt(Math.pow(get(1+i).velocity,2)+2*get(i).distance(get(i+1))*Constants.MAX_ACCELERATION));
+        }
+
     }
 
     public boolean InjectPoints(){
@@ -172,5 +180,6 @@ public class Path extends ArrayList<Waypoint> {
         w.multiply(unit.PIXLES_PER_METER);
         return w;
     }
+
 
 }
